@@ -73,7 +73,7 @@ $update = $Config->checkUpdate();
 
         <div id="main-container">
 
-            <div class="box column-right" id="esm-load_average">
+            <div class="box" id="esm-load_average">
                 <div class="box-header">
                     <h1>Load Average</h1>
                     <ul>
@@ -132,7 +132,7 @@ $update = $Config->checkUpdate();
                 </div>
             </div>
 
-            <div class="box column-left" id="esm-memory">
+            <div class="box" id="esm-memory">
                 <div class="box-header">
                     <h1>Memory</h1>
                     <ul>
@@ -168,7 +168,7 @@ $update = $Config->checkUpdate();
 
 
             <div class="t-center">
-                <div class="box column-left column-33" id="esm-last_login">
+                <div class="box" id="esm-last_login">
                     <div class="box-header">
                         <h1>Last login</h1>
                         <ul>
