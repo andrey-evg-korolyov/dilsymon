@@ -1,5 +1,6 @@
 <?php
-require '../autoload.php';
+//require '/../autoload.php';
+require __DIR__.'/../autoload.php';
 $Config = new Config();
 
 $datas = array();
@@ -58,9 +59,28 @@ else
         }
 
         $key++;
-    }
+        
+        
+//            //тестовое сохранение в БД//
+//        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);       
+//        $mysqli = new mysqli('localhost', 'andrey', 'andrey1984k13', 'ezmon');
+//        $result = $mysqli->query("INSERT INTO disk (filesystem, used, total) VALUES('$filesystem', '$used', '$total')");
+    
+    include_once __DIR__.'/Persist/disk/Disk_DAO_Factory.php';
+    include_once __DIR__.'/Persist/disk/dao/Disk_DAO_Interface.php';
+    include_once __DIR__.'/Persist/disk/dao/Disk_DAO_DB.php';
+    include_once __DIR__.'/Persist/disk/dto/Disk_DTO.php';
+    
+    ini_set('display_errors', true);
+    error_reporting(E_ALL & ~E_NOTICE);
+    $factory = Disk_DAO_Factory::getFactory();
+    $dao = $factory->getDbDao();
+    
+    $data = new Disk_DTO($filesystem, $used, $total);
+    $dao->InsertData($data);
 
 }
 
-
+ }
+   
 echo json_encode($datas);

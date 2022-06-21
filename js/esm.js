@@ -168,8 +168,12 @@ esm.getDisk = function() {
     
         esm.reloadBlock_spin(module);
 
-    }, 'json');
-
+    }, 'json')
+ .fail(function(data) {
+   // alert(ini_set('display_errors', true));
+    $('.box#esm-'+module+' .box-content').html(data.responseText);
+  });
+   
 }
 
 
