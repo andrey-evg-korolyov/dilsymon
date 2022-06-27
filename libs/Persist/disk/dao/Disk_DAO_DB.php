@@ -32,4 +32,23 @@ class Disk_DAO_DB implements Disk_DAO_Interface {
         
     }
 
+    /**
+     * Получить данные дисков для графика
+     * @return  nixed данные для графика по дискам, формата array( 'disk_name'=>array(Graph_DTO))
+     */
+    public function getGraphData() {
+        $test_data = new Graph_DTO();
+//        $test_data->addDiskData('disk1', new Graph_Disk_DTO('21/06/2022 13:35:40', 111, 222));
+//        $test_data->addDiskData('disk1', new Graph_Disk_DTO('22/06/2022 13:35:40', 11111, 22222));
+//        $test_data->addDiskData('disk2', new Graph_Disk_DTO('21/06/2022 13:35:40', 333, 444));
+//        $test_data->addDiskData('disk2', new Graph_Disk_DTO('22/06/2022 13:35:40', 33333, 444444));
+
+        $res = $this->mysqli->query("SELECT filesystem, created, used, total FROM disk");
+        while ($row = mysqli_fetch_assoc($res)) {
+            $test_data->addDiskData($row['filesystem'], new Graph_Disk_DTO($row['created'], $row['used'], $row['total']));
+        }
+        
+        return test_data;
+    }
+
 }

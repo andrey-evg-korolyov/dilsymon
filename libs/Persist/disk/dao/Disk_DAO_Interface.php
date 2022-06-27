@@ -17,4 +17,10 @@ interface Disk_DAO_Interface {
      * @param type $id - идентификатор искомой записи
      */
     public function findData($id);
+    
+    /**
+     * Получить данные для графика
+     * @result Graph_DTO данные
+     */
+    public function getGraphData();
 }

@@ -165,6 +165,21 @@ esm.getDisk = function() {
 
             $box.append(html);
         }
+        
+        html = '';
+        for(var disk_name in data[0].graph_data){   //итерируем по именам дисков
+            html += '<br>'+disk_name+':<table border="1">';
+            for(var disk_date in data[0].graph_data[disk_name]){  //итерируем по датам в диске
+              html += '<tr>';
+              html += '<td>'+disk_date+'</td>';
+              html += '<td>'+data[0].graph_data[disk_name][disk_date].used+'</td>';
+              html += '<td>'+data[0].graph_data[disk_name][disk_date].total+'</td>';
+              html += '</tr>';
+            }
+            html += '</table>';
+        }
+        
+        $box.prepend(html);
     
         esm.reloadBlock_spin(module);
 

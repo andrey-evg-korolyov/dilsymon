@@ -59,7 +59,7 @@ else
         }
 
         $key++;
-        
+    } 
         
 //            //тестовое сохранение в БД//
 //        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);       
@@ -70,16 +70,22 @@ else
     include_once __DIR__.'/Persist/disk/dao/Disk_DAO_Interface.php';
     include_once __DIR__.'/Persist/disk/dao/Disk_DAO_DB.php';
     include_once __DIR__.'/Persist/disk/dto/Disk_DTO.php';
+    include_once __DIR__.'/Persist/disk/dto/Graph_DTO.php';
     
-    ini_set('display_errors', true);
     error_reporting(E_ALL & ~E_NOTICE);
     $factory = Disk_DAO_Factory::getFactory();
     $dao = $factory->getDbDao();
     
-    $data = new Disk_DTO($filesystem, $used, $total);
-    $dao->InsertData($data);
-
-}
+    $data = $dao->getGraphData();
+    $json_data = array();
+    foreach ($data->getDiskNames() AS $disk_name){
+        $disk_all_data = $data->getDiskData($disk_name);
+        foreach ($disk_all_data AS $disk_data){
+         $json_data[$disk_name][$disk_data->date] = array('used'=>$disk_data->used,
+                                                          'total'=>$disk_data->total);   
+        }
+    }
+    $datas[0]['graph_data']= $json_data;
 
  }
    
