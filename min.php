@@ -18,6 +18,7 @@ $update = $Config->checkUpdate();
         <script src="js/plugins/jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js/plugins/jquery.knob.js" type="text/javascript"></script>
         <script src="js/esm.js" type="text/javascript"></script>
+        <script src="web/js/chart.min.js"></script>
         <script>
             $(function () {
                 $('.gauge').knob({
@@ -40,6 +41,7 @@ $update = $Config->checkUpdate();
 <?php endif; ?>
             });
         </script>
+        
     </head>
 
     <body class="theme-<?php echo $Config->get('esm:theme'); ?>">
@@ -111,6 +113,10 @@ $update = $Config->checkUpdate();
                     </ul>
                 </div>
 
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+                
                 <div class="box-content">
                     <table>
                         <thead>
@@ -198,9 +204,7 @@ $update = $Config->checkUpdate();
             <div class="cls"></div>
 
         </div>
-
-
-
+     
     </body>
 </html>
 

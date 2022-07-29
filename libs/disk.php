@@ -60,12 +60,7 @@ else
 
         $key++;
     } 
-        
-//            //тестовое сохранение в БД//
-//        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);       
-//        $mysqli = new mysqli('localhost', 'andrey', 'andrey1984k13', 'ezmon');
-//        $result = $mysqli->query("INSERT INTO disk (filesystem, used, total) VALUES('$filesystem', '$used', '$total')");
-    
+            
     include_once __DIR__.'/Persist/disk/Disk_DAO_Factory.php';
     include_once __DIR__.'/Persist/disk/dao/Disk_DAO_Interface.php';
     include_once __DIR__.'/Persist/disk/dao/Disk_DAO_DB.php';

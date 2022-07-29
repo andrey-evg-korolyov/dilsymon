@@ -7,6 +7,12 @@
         "theme": "blue",
         "custom_title": ""
     },
+    "db": {
+      "address": "localhost",
+      "user": "andrey",
+      "password": "andrey1984k13",
+      "db_name": "ezmon"  
+    },
     "cpu": {
         "enable_temperature": true
     },

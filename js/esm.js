@@ -17,7 +17,7 @@ esm.getSystem = function() {
 
     }, 'json');
 
-}
+};
 
 
 esm.getLoad_average = function() {
@@ -38,7 +38,7 @@ esm.getLoad_average = function() {
 
     }, 'json');
 
-}
+};
 
 
 esm.getCpu = function() {
@@ -57,7 +57,7 @@ esm.getCpu = function() {
 
     }, 'json');
 
-}
+};
 
 
 esm.getMemory = function() {
@@ -91,7 +91,7 @@ esm.getMemory = function() {
 
     }, 'json');
 
-}
+};
 
 
 esm.getSwap = function() {
@@ -125,7 +125,7 @@ esm.getSwap = function() {
 
     }, 'json');
 
-}
+};
 
 
 esm.getDisk = function() {
@@ -166,31 +166,74 @@ esm.getDisk = function() {
             $box.append(html);
         }
         
+        
         html = '';
+        chart = [];
         for(var disk_name in data[0].graph_data){   //итерируем по именам дисков
             html += '<br>'+disk_name+':<table border="1">';
+            x_array = [];
+            y_array = [];
             for(var disk_date in data[0].graph_data[disk_name]){  //итерируем по датам в диске
               html += '<tr>';
               html += '<td>'+disk_date+'</td>';
               html += '<td>'+data[0].graph_data[disk_name][disk_date].used+'</td>';
               html += '<td>'+data[0].graph_data[disk_name][disk_date].total+'</td>';
               html += '</tr>';
-            }
+              x_array.push(disk_date);
+              //y_array.push(data[0].graph_data[disk_name][disk_date].used);
+              y_array.push(data[0].graph_data[disk_name][disk_date].total-data[0].graph_data[disk_name][disk_date].used);
+            }                        
             html += '</table>';
-        }
+            line = [];
+            line.x = x_array;
+            line.y = y_array;
+            line.name = disk_name;
+            chart.push(line);
+        }   
+                          
+       // $box.prepend(html);
         
-        $box.prepend(html);
-    
         esm.reloadBlock_spin(module);
-
+        esm.draw_disk_chart(chart);
+            
     }, 'json')
  .fail(function(data) {
    // alert(ini_set('display_errors', true));
     $('.box#esm-'+module+' .box-content').html(data.responseText);
   });
    
-}
+    esm.draw_disk_chart = function(chart){
+        var labels;
+        const colors = ['red','green','blue'];
+        
+        var datasets = [];
+        for (var index in chart) {
+            var dataset = {
+                label: chart[index].name,
+                backgroundColor: colors[index],
+                borderColor: colors[index],
+                data: chart[index].y
+            };
+            labels = chart[index].x;
 
+            datasets.push(dataset);
+    }
+        var data = {labels: labels};
+        data.datasets = datasets;
+                  
+        const config = {
+            type: 'line',
+            data: data,
+            options: {}
+        };
+            
+        const myChart = new Chart(
+              document.getElementById('myChart'),
+              config
+      );
+    };   
+   
+};
 
 esm.getLast_login = function() {
 
@@ -218,7 +261,7 @@ esm.getLast_login = function() {
 
     }, 'json');
 
-}
+};
 
 
 esm.getNetwork = function() {
@@ -249,7 +292,7 @@ esm.getNetwork = function() {
 
     }, 'json');
 
-}
+};
 
 
 esm.getPing = function() {
@@ -278,7 +321,7 @@ esm.getPing = function() {
 
     }, 'json');
 
-}
+};
 
 
 esm.getServices = function() {
@@ -311,7 +354,7 @@ esm.getServices = function() {
 
     }, 'json');
 
-}
+};
 
 
 esm.getAll = function() {
@@ -325,13 +368,13 @@ esm.getAll = function() {
     esm.getNetwork();
     esm.getPing();
     esm.getServices();
-}
+};
 
 esm.reloadBlock = function(block) {
 
     esm.mapping[block]();
 
-}
+};
 
 esm.reloadBlock_spin = function(block) {
 
@@ -340,14 +383,14 @@ esm.reloadBlock_spin = function(block) {
     $('.reload', $module).toggleClass('spin disabled');
     $('.box-content', $module).toggleClass('faded');
 
-}
+};
 
 esm.insertDatas = function($box, block, datas) {
     for (var item in datas)
     {
         $('#'+block+'-'+item, $box).html(datas[item]);
     }
-}
+};
 
 esm.reconfigureGauge = function($gauge, newValue) {
     // Change colors according to the percentages
@@ -372,7 +415,7 @@ esm.reconfigureGauge = function($gauge, newValue) {
 
     // Change gauge value
     $gauge.val(newValue).trigger('change');
-}
+};
 
 
 esm.mapping = {
