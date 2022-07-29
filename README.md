@@ -31,3 +31,7 @@ Changelog is available [here](http://www.ezservermonitor.com/esm-web/changelog).
 
 **View more information on the [official website](http://www.ezservermonitor.com/esm-web/features).**
 
+Before using the project, you must create a database on a local MySQL or MariaDB instance.
+After creating the database, you need to:
+1. Enter the parameters of the created database in the "db" section of the esm.config.json file
+2. Apply the datadase.sql script in the created database

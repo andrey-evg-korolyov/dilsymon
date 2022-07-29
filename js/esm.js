@@ -181,7 +181,7 @@ esm.getDisk = function() {
               html += '</tr>';
               x_array.push(disk_date);
               //y_array.push(data[0].graph_data[disk_name][disk_date].used);
-              y_array.push(data[0].graph_data[disk_name][disk_date].total-data[0].graph_data[disk_name][disk_date].used);
+              y_array.push(data[0].graph_data[disk_name][disk_date].total - data[0].graph_data[disk_name][disk_date].used);
             }                        
             html += '</table>';
             line = [];

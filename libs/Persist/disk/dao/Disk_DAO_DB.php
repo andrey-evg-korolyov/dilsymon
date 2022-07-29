@@ -13,8 +13,8 @@ class Disk_DAO_DB implements Disk_DAO_Interface {
     public function __construct() {
         
         $Config = new Config();
-        //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-        $this->mysqli = new mysqli($Config->get('db: address'),$Config->get('db: user'),$Config->get('db: password'),$Config->get('db: db_name'));
+        //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);       
+        $this->mysqli = new mysqli($Config->get('db:address'),$Config->get('db:user'),$Config->get('db:password'),$Config->get('db:db_name'));
     }
 
     /**
