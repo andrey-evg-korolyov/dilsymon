@@ -9,8 +9,8 @@
     },
     "db": {
       "address": "localhost",
-      "user": "andrey",
-      "password": "andrey1984k13",
+      "user": "root",
+      "password": "",
       "db_name": "ezmon"  
     },
     "cpu": {
