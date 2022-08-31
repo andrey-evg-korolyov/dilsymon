@@ -35,3 +35,5 @@ Before using the project, you must create a database on a local MySQL or MariaDB
 After creating the database, you need to:
 1. Enter the parameters of the created database in the "db" section of the esm.config.json file
 2. Apply the datadase.sql script in the created database
+
+The "x_period" parameter in the "db" section of the esm.config.json file means the number of recent records in SQL equal to the number of points on the chart.

@@ -6,15 +6,15 @@
 class Disk_DAO_DB implements Disk_DAO_Interface {
 
     private $mysqli;
-    
+
     /**
      * Конструктор DAO модуля Disk для хранения в СУБД
      */
     public function __construct() {
-        
+
         $Config = new Config();
         //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);       
-        $this->mysqli = new mysqli($Config->get('db:address'),$Config->get('db:user'),$Config->get('db:password'),$Config->get('db:db_name'));
+        $this->mysqli = new mysqli($Config->get('db:address'), $Config->get('db:user'), $Config->get('db:password'), $Config->get('db:db_name'));
     }
 
     /**
@@ -39,13 +39,16 @@ class Disk_DAO_DB implements Disk_DAO_Interface {
      * @return  nixed данные для графика по дискам, формата array( 'disk_name'=>array(Graph_DTO))
      */
     public function getGraphData() {
+        
         $test_data = new Graph_DTO();
-
-        $res = $this->mysqli->query("SELECT filesystem, created, used, total FROM disk");
+        $Config = new Config();      
+        //$x_period = $Config->get('db:x_period');
+        
+        $res = $this->mysqli->query("SELECT filesystem, created, used, total FROM disk WHERE created >= curdate() - INTERVAL ".$Config->get('db:x_period')." DAY");
         while ($row = mysqli_fetch_assoc($res)) {
             $test_data->addDiskData($row['filesystem'], new Graph_Disk_DTO($row['created'], $row['used'], $row['total']));
         }
-        
+
         return $test_data;
     }
 

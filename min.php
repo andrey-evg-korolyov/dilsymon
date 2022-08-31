@@ -54,10 +54,12 @@ $update = $Config->checkUpdate();
 
             <div id="hostname">
                 <?php
-                if ($Config->get('esm:custom_title') != '')
+                if ($Config->get('esm:custom_title') != '') {
                     echo $Config->get('esm:custom_title');
-                else
+                }
+                else {
                     echo Misc::getHostname() . ' - ' . Misc::getLanIP();
+                }
                 ?>
             </div>
 

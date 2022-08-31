@@ -2,7 +2,7 @@
 
 // Сервисный скрипт, предназначенный для вызова из крона операционной системы.
 //
-// Пример вызова: "/usr/bin/php /var/www/ezmon/libs/Persist/disk/cron-service.php disk"
+// Пример вызова: "/usr/bin/php /var/www/ezmon/libs/Persist/cron-service.php disk"
 // Входные параметры:
 // $argv[1] - имя функции для выполнения, обязательный.
 // Задаётся в hs скрипте аргументом командной строки,

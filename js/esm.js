@@ -33,10 +33,31 @@ esm.getLoad_average = function() {
         esm.reconfigureGauge($('input#load-average_1', $box), data[0]);
         esm.reconfigureGauge($('input#load-average_5', $box), data[1]);
         esm.reconfigureGauge($('input#load-average_15', $box), data[2]);
-
+        
+          html = '';         
+            for(var load_date in data[0].graph_data){ 
+              //html += '<br>'+load_date+':<table border="1">';  
+              html += '<table border="1">';
+              html += '<tr>';
+              html += '<td>'+load_date+'</td>';
+              html += '<td>'+data[0].graph_data[load_date].min_1+'</td>';
+              html += '<td>'+data[0].graph_data[load_date].min_5+'</td>';
+              html += '<td>'+data[0].graph_data[load_date].min_15+'</td>';
+              html += '</tr>';
+              
+              html += '</table>'; 
+            }                        
+              //html += '</table>'; 
+              
+                                   
+        $box.prepend(html);
+                  
         esm.reloadBlock_spin(module);
 
-    }, 'json');
+    }, 'json')
+       .fail(function(data){      
+    $('.box#esm-'+module+' .box-content').html(data.responseText);
+    });
 
 };
 
