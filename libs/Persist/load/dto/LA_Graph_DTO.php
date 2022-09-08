@@ -27,7 +27,6 @@ class Graph{
     public function getLoadData() {
         return $this->data;
     }
-    
 }
 
 /**

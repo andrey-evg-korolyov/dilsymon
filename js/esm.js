@@ -34,33 +34,77 @@ esm.getLoad_average = function() {
         esm.reconfigureGauge($('input#load-average_5', $box), data[1]);
         esm.reconfigureGauge($('input#load-average_15', $box), data[2]);
         
-          html = '';         
-            for(var load_date in data[0].graph_data){ 
-              //html += '<br>'+load_date+':<table border="1">';  
-              html += '<table border="1">';
-              html += '<tr>';
-              html += '<td>'+load_date+'</td>';
-              html += '<td>'+data[0].graph_data[load_date].min_1+'</td>';
-              html += '<td>'+data[0].graph_data[load_date].min_5+'</td>';
-              html += '<td>'+data[0].graph_data[load_date].min_15+'</td>';
-              html += '</tr>';
-              
-              html += '</table>'; 
-            }                        
-              //html += '</table>'; 
-              
-                                   
+            html = '';
+          
+            chart = [];           
+            x_array = [];
+            y_array = [];
+            
+        for(var load_data in data[3].graph_data){ 
+                   
+            html += '<table border="1">';              
+            html += '<tr>';
+            html += '<td>'+load_data+'</td>';
+            html += '<td>'+data[3].graph_data[load_data].min_1+'</td>';
+            html += '<td>'+data[3].graph_data[load_data].min_5+'</td>';
+            html += '<td>'+data[3].graph_data[load_data].min_15+'</td>';
+            html += '</tr>'; 
+            html += '</table>';
+        
+            x_array.push(load_data);
+            y_array.push(data[3].graph_data[load_data].min_1);
+            line = [];
+            line.x = x_array;
+            line.y = y_array;
+            line.name = load_data;
+            chart.push(line);
+          }       
+            
+                   
         $box.prepend(html);
                   
         esm.reloadBlock_spin(module);
+        
+        esm.draw_load_average_chart(chart);
 
     }, 'json')
        .fail(function(data){      
     $('.box#esm-'+module+' .box-content').html(data.responseText);
     });
+    
+    esm.draw_load_average_chart = function(chart){
+        
+    var labels;
+    const colors = ['red', 'green', 'blue'];
+
+    var datasets = [];
+    for (var index in chart) {
+        var dataset = {
+            label: chart[index].name,
+            backgroundColor: colors[index],
+            borderColor: colors[index],
+            data: chart[index].y
+        };
+        labels = chart[index].x;
+
+        datasets.push(dataset);
+    }
+    var data = {labels: labels};
+    data.datasets = datasets;
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {}
+        };
+        const myLoadChart = new Chart(
+          document.getElementById('myLoadChart'),
+          config
+        );
+
+    };
 
 };
-
 
 esm.getCpu = function() {
 
@@ -187,6 +231,7 @@ esm.getDisk = function() {
             $box.append(html);
         }
         
+      
         
         html = '';
         chart = [];

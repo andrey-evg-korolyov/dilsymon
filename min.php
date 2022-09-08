@@ -84,6 +84,10 @@ $update = $Config->checkUpdate();
                         <li><a href="#" class="reload" onclick="esm.reloadBlock('load_average');"><span class="icon-cycle"></span></a></li>
                     </ul>
                 </div>
+                
+                <div>
+                    <canvas id="myLoadChart"></canvas>
+                </div>
 
                 <div class="box-content t-center">
                     <div class="f-left w33p">
