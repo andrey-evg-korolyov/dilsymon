@@ -36,9 +36,16 @@ esm.getLoad_average = function() {
         
             html = '';
           
-            chart = [];           
-            x_array = [];
-            y_array = [];
+            chart = [];
+            
+            line_1_x_array = [];
+            line_1_y_array = [];
+            
+            line_5_x_array = [];
+            line_5_y_array = [];
+            
+            line_15_x_array = [];
+            line_15_y_array = [];
             
         for(var load_data in data[3].graph_data){ 
                    
@@ -51,17 +58,34 @@ esm.getLoad_average = function() {
             html += '</tr>'; 
             html += '</table>';
         
-            x_array.push(load_data);
-            y_array.push(data[3].graph_data[load_data].min_1);
-            line = [];
-            line.x = x_array;
-            line.y = y_array;
-            line.name = load_data;
-            chart.push(line);
-          }       
+            line_1_x_array.unshift(load_data);
+            line_5_x_array.unshift(load_data);
+            line_15_x_array.unshift(load_data);
             
-                   
-        $box.prepend(html);
+            line_1_y_array.unshift(data[3].graph_data[load_data].min_1);
+            line_5_y_array.unshift(data[3].graph_data[load_data].min_5);
+            line_15_y_array.unshift(data[3].graph_data[load_data].min_15);
+          }
+          
+          line = [];
+          line.x = line_1_x_array;
+          line.y = line_1_y_array;
+          line.name = 'min_1';
+          chart.push(line);  
+
+          line = [];
+          line.x = line_5_x_array;
+          line.y = line_5_y_array;
+          line.name = 'min_5';
+          chart.push(line);            
+
+          line = [];
+          line.x = line_15_x_array;
+          line.y = line_15_y_array;
+          line.name = 'min_15';
+          chart.push(line);
+                              
+        //$box.prepend(html);
                   
         esm.reloadBlock_spin(module);
         
@@ -245,9 +269,8 @@ esm.getDisk = function() {
               html += '<td>'+data[0].graph_data[disk_name][disk_date].used+'</td>';
               html += '<td>'+data[0].graph_data[disk_name][disk_date].total+'</td>';
               html += '</tr>';
-              x_array.push(disk_date);
-              //y_array.push(data[0].graph_data[disk_name][disk_date].used);
-              y_array.push(data[0].graph_data[disk_name][disk_date].total - data[0].graph_data[disk_name][disk_date].used);
+              x_array.unshift(disk_date);
+              y_array.unshift(data[0].graph_data[disk_name][disk_date].total - data[0].graph_data[disk_name][disk_date].used);
             }                        
             html += '</table>';
             line = [];

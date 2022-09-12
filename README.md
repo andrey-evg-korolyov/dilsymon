@@ -36,4 +36,4 @@ After creating the database, you need to:
 1. Enter the parameters of the created database in the "db" section of the esm.config.json file
 2. Apply the datadase.sql script in the created database
 
-The "x_period" parameter in the "db" section of the esm.config.json file means the number of recent records in SQL equal to the number of points on the chart.
+The "x_period" parameter in the "db" section of the esm.config.json file means the number of recent records in SQL equal to the number of points on the graph. The "x_period_disk" parameter means the number of points multiplied by the number of disks on the installed device.

@@ -12,7 +12,8 @@
       "user": "andrey",
       "password": "andrey1984k13",
       "db_name": "ezmon",
-      "x_period": "7"
+      "x_period": "5",
+      "x_period_disk": "10"
     },
     "cpu": {
         "enable_temperature": true

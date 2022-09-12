@@ -41,10 +41,9 @@ class Disk_DAO_DB implements Disk_DAO_Interface {
     public function getGraphData() {
         
         $test_data = new Graph_DTO();
-        $Config = new Config();      
-        //$x_period = $Config->get('db:x_period');
+        $Config = new Config();              
         
-        $res = $this->mysqli->query("SELECT filesystem, created, used, total FROM disk WHERE created >= curdate() - INTERVAL ".$Config->get('db:x_period')." DAY");
+        $res = $this->mysqli->query("SELECT filesystem, created, used, total FROM disk ORDER BY id DESC LIMIT ".$Config->get('db:x_period_disk')."");
         while ($row = mysqli_fetch_assoc($res)) {
             $test_data->addDiskData($row['filesystem'], new Graph_Disk_DTO($row['created'], $row['used'], $row['total']));
         }

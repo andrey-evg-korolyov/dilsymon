@@ -33,8 +33,8 @@ class LA_DAO_DB implements LA_DAO_Interface {
     public function getDataGraph() {
         
        $test_data = new Graph();
-       
-       $res = $this->mysqli->query("SELECT created, min_1, min_5, min_15 FROM load_average");
+       $Config = new Config();
+       $res = $this->mysqli->query("SELECT created, min_1, min_5, min_15 FROM load_average ORDER BY id DESC LIMIT ".$Config->get('db:x_period')."");
         while ($row = mysqli_fetch_assoc($res)) {
             $test_data->addLoadData(new Graph_LA_DTO($row['created'], $row['min_1'], $row['min_5'], $row['min_15']));
         }
